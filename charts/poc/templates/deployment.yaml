@@ -19,6 +19,7 @@ spec:
         app: poseidon-poc
         chart: poseidon-poc-chart
         release: poseidon-poc
+    spec:
       containers:
       - name: poc
         image: 483413526957.dkr.ecr.us-east-1.amazonaws.com/poc
