@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poseidon-poc
+  labels:
+    app: poseidon
+    chart: poseidon-poc-chart
+    release: poseidon-poc
+    heritage: poseidon-poc
+spec:
+  selector:
+    matchLabels:
+      app: poseidon-poc
+      release: poseidon-poc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: poseidon-poc
+        chart: poseidon-poc-chart
+        release: poseidon-poc
+      containers:
+      - name: poc
+        image: 483413526957.dkr.ecr.us-east-1.amazonaws.com/poc
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PORT
+          value: "3000"
+        - name: AWS_REGION
+          value: "us-east-1"
+        ports:
+        - name: http
+          containerPort: 3000

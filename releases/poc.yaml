@@ -1,0 +1,24 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: poc
+  namespace: poseidon
+  annotations:
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: poc
+  chart:
+    git: ssh://git@github.com/kylewu/flux-get-started
+    ref: master
+    path: charts/poc
+  values:
+    image:
+      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/poc
+      tag: master
+    replicaCount: 1
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 10m
