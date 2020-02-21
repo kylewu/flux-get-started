@@ -15,8 +15,7 @@ spec:
     path: charts/poc
   values:
     image:
-      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/poc
-      tag: master
+      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/poc:master
     replicaCount: 1
     resources:
       requests:
