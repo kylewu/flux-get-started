@@ -17,6 +17,7 @@ spec:
     fullnameOverride: loyalty
     image:
       repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/demo
+      pullPolicy: Always
     replicaCount: 1
     env:
       - name: PORT
