@@ -16,8 +16,16 @@ spec:
   values:
     fullnameOverride: loyalty
     image:
-      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/poc
+      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/demo
     replicaCount: 1
+    env:
+      - name: PORT
+        value: "3000"
+      - name: MESSAGE
+        value: "Loyalty Service"
+      - name: API_PATH
+        value: "/api/v1"
+
     resources:
       requests:
         memory: 256Mi
