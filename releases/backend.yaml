@@ -1,0 +1,34 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: backend
+  namespace: poseidon
+  annotations:
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: backend
+  chart:
+    git: ssh://git@github.com/kylewu/flux-get-started
+    ref: master
+    path: charts/backend
+  values:
+    fullnameOverride: backend
+    image:
+      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/backend
+      pullPolicy: Always
+    replicaCount: 1
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 10m
+    ingress:
+      enabled: true
+      hosts:
+        - host:
+          paths: ["/backend/(.*)"]
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1

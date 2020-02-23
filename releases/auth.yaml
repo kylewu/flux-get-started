@@ -2,20 +2,21 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: poc
+  name: auth
   namespace: poseidon
   annotations:
     fluxcd.io/automated: "false"
     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
 spec:
-  releaseName: poc
+  releaseName: auth
   chart:
     git: ssh://git@github.com/kylewu/flux-get-started
     ref: master
-    path: charts/poc
+    path: charts/auth
   values:
     image:
-      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/poc:master
+      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/auth
+      pullPolicy: Always
     replicaCount: 1
     resources:
       requests:
