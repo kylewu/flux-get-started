@@ -1,0 +1,37 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: registration
+  namespace: poseidon
+  annotations:
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: registration
+  chart:
+    git: ssh://git@github.com/kylewu/flux-get-started
+    ref: master
+    path: charts/demo
+  values:
+    fullnameOverride: registration
+    image:
+      repository: 483413526957.dkr.ecr.us-east-1.amazonaws.com/demo
+      pullPolicy: Always
+    replicaCount: 1
+    env:
+      - name: PORT
+        value: "3000"
+      - name: MESSAGE
+        value: "Registration Service"
+      - name: API_PATH
+        value: "/api/v1"
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 10m
+    ingress:
+      enabled: true
+      hosts:
+        - host:
+          paths: ["/registration(/|$)(.*)"]
